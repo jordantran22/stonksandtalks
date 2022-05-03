@@ -7,6 +7,10 @@ const { Buffer } = require('buffer/');
 function App() {
   const [stonk, setStonk] = useState(null);
 
+  const formatPriceByTwoDecimals = (price) => {
+    return `$${price.toFixed(2)}`;
+  }
+
   useEffect(() => {
     const ws = new WebSocket('wss://streamer.finance.yahoo.com');
     protobuf.load('./YPricingData.proto', (err, root) => {
@@ -41,7 +45,7 @@ function App() {
       {
         stonk && 
           <div>
-          {stonk.price}
+          {formatPriceByTwoDecimals(stonk.price)}
           </div>
       }
     </div>
