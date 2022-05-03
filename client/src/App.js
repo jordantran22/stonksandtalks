@@ -2,13 +2,15 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import protobuf from 'protobufjs';
+import LineChart from './components/LineChart';
 const { Buffer } = require('buffer/');
+
 
 function App() {
   const [stonk, setStonk] = useState(null);
 
   const formatPriceByTwoDecimals = (price) => {
-    return `$${price.toFixed(2)}`;
+    return `${price.toFixed(2)}`;
   }
 
   useEffect(() => {
@@ -32,7 +34,7 @@ function App() {
         };
       
         ws.onmessage = function incoming(message) {
-          console.log('comming message')
+         // console.log('comming message')
           //console.log(data);
           const next = (Yaticker.decode(new Buffer(message.data, 'base64')));
           setStonk(next);
@@ -46,8 +48,12 @@ function App() {
         stonk && 
           <div>
           {formatPriceByTwoDecimals(stonk.price)}
+          <LineChart stockPrice={formatPriceByTwoDecimals(stonk.price)} />  
           </div>
       }
+
+
+   
     </div>
   );
 }
