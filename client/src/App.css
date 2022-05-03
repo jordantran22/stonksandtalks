@@ -36,3 +36,86 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  background-color: #1f1e1e;
+}
+
+.navbar {
+  /* background-color: #2b2e2c; */
+
+  /* background-color: #201e22; */
+  background-color: #18171a;
+  color: white;
+  display: flex;
+  height: 7vh;
+  position: fixed;
+  width: 100vw;
+}
+
+.logo {
+  position: relative;
+  margin-block-start: auto;
+  padding: 0.5rem;
+}
+
+.logo:hover {
+  color: #1cd459;
+}
+
+.navbarLinks {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.navbarItem {
+  padding-left: 4rem;
+  font-size: x-large;
+  font-weight: 500;
+}
+
+.navbarItem:hover {
+  color: #1cd459;
+}
+
+.loginButton {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.75rem;
+  border-radius: 10px;
+  background-color: #3f4140;
+  border: none;
+  color: white;
+  margin: auto 0;
+  font-size: large;
+  font-weight: bold;
+  margin: 1rem;
+}
+
+.loginButton:hover {
+  background-color: #474848
+}
+
+.signUpButton {
+    padding: 0.75rem;
+    border-radius: 10px;
+    background-color: #1cd459;
+    border: none;
+    color: white;
+    margin: auto 0;
+    font-size: large;
+    font-weight: bold;
+    margin: 1rem;
+}
+
+.signUpButton:hover {
+  background-color: #19c252;
+}
+
+.navbarButtons {
+  display: flex;
+  position: absolute;
+  right: 0;
+}

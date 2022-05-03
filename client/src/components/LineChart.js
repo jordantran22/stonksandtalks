@@ -22,7 +22,6 @@ import {
     Tooltip,
     Legend
     );
-    
 
 
 const LineChart = ({stockPrice}) => {

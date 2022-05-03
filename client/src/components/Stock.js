@@ -10,10 +10,8 @@ const { Buffer } = require('buffer/');
 
 const Stock = () => {
     const [stonk, setStonk] = useState(null);
-    // const params = new URLSearchParams(window.location.search);
-    // console.log(params);
     const ticker = useParams();
-    console.log(ticker);
+
 
     const formatPriceByTwoDecimals = (price) => {
       return `${price.toFixed(2)}`;
@@ -41,10 +39,9 @@ const Stock = () => {
         };
       
         ws.onmessage = function incoming(message) {
-         // console.log('comming message')
-          //console.log(data);
           const next = (Yaticker.decode(new Buffer(message.data, 'base64')));
           setStonk(next);
+          console.log(next);
         }
     });
   }, []);
