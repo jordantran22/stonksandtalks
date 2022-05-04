@@ -52,6 +52,7 @@ body {
   position: fixed;
   width: 100vw;
   box-shadow: 2px 2px 2px black;
+  z-index: 100;
 }
 
 .logo {
@@ -129,7 +130,7 @@ body {
   width: 15vw;
   height: 100vh;
   background-color: #222222;
-  box-shadow: 1px 1px 1px black;
+  box-shadow: 1px 1px 1px rgb(57, 57, 57);
   color: white;
 }
 
@@ -147,7 +148,7 @@ body {
 .popularStockNameContainer {
   display: flex;
   justify-content: space-between;
-  box-shadow: 1px 1px 3px black;
+  box-shadow: 0px 1px 3px rgb(57, 57, 57);
   padding: 0.25rem;
 }
 
@@ -201,4 +202,77 @@ body {
 
 .percentChange {
   margin-left: 1rem;
+}
+
+.coinEmoji {
+  width: auto;
+  height: 4vh;
+}
+
+.chatRoomContainer {
+  background-color: #222222;
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+  position: fixed;
+  right: 0;
+  height: 100vh;
+
+  box-shadow: -0.5px 0px 1px 1px rgb(57 57 57);
+}
+
+.welcomeMessage {
+  color:white;
+  font-size: large;
+  font-weight: 500;
+}
+
+.messageContainer {
+  margin-left: 1rem;
+  margin-top: 1.5rem;
+  height: 70vh;
+  overflow-y: scroll;
+}
+
+.chatRoomHeader {
+  color: white;
+  text-align: center;
+  box-shadow: 0px 1px 3px rgb(57, 57, 57);
+  margin-top: 4rem;
+}
+
+.sendMessageContainer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  box-shadow:  0px -2px 0px rgb(57, 57, 57);
+  padding: 1rem;
+}
+
+.chatbar {
+  width: 15vw;
+  background-color:rgb(93, 93, 93);
+  padding: 1rem;
+  border-radius: 10px;
+  border: 0.1px solid white;
+  margin-bottom: 2rem;
+  margin-right: 2rem;
+  z-index: 1000 !important;
+}
+
+.chatbar:focus {
+  background-color:rgb(121, 121, 121);
+  outline: none;
+  color: white;
+}
+
+.chatButton {
+  padding: 1rem;
+  border-radius: 10px;
+  border: none;
+  background-color: #1cd459;
+  color: white;
+  font-size: large;
+  font-weight: bold;
+  margin-right: 1rem;
 }

@@ -35,7 +35,7 @@ const SideNavbar = () => {
     return (
         <div className='sidebarContainer'>
             <div className='categories'>
-                <h2 className='categoryTitle'>Popular Stocks</h2>
+                <h2 className='categoryTitle'>Popular Stocks🔥</h2>
                 {
                     popularStocks.map((stock) => {
                        return( 
@@ -70,7 +70,7 @@ const SideNavbar = () => {
                        )
                     })
                 }
-                <h2 className='categoryTitle'>Wall Street Bets</h2>
+                <h2 className='categoryTitle'>Wall Street Bets💰</h2>
                 {
                     wallStreetBets.map((stock) => {
                        return( 
@@ -100,7 +100,7 @@ const SideNavbar = () => {
                        )
                     })
                 }
-                <h2 className='categoryTitle'>Crypto</h2>
+                <h2 className='categoryTitle'>Crypto <img className="coinEmoji" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/coin_1fa99.png"/></h2>
                 {
                     topCrypto.map((coin) => {
                        return( 

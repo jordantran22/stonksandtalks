@@ -6,6 +6,7 @@ import {
     useParams
   } from "react-router-dom";
 import SideNavbar from './SideNavbar';
+import Chatroom from './Chatroom';
 
 const { Buffer } = require('buffer/');
 
@@ -31,7 +32,7 @@ const Stock = () => {
         ws.onopen = function open() {
           console.log('connected');
           ws.send(JSON.stringify({
-            subscribe: [`${ticker.stockTicker}`, 'DOGE-USD']
+            subscribe: [`${ticker.stockTicker}`]
           }));
         };
       
@@ -57,6 +58,8 @@ const Stock = () => {
                   <LineChart stockPrice={formatPriceByTwoDecimals(stonk.price)} />  
                 </div>
             }
+
+          <Chatroom />
 
             
         </div>
