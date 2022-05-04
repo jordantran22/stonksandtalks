@@ -10,6 +10,7 @@ import {
 import Stock from './components/Stock';
 import Navbar from './components/Navbar';
 import Homepage from './components/Homepage';
+import SideNavbar from './components/SideNavbar';
 
 function App() {
   return (

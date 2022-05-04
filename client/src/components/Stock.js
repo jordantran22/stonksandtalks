@@ -5,6 +5,7 @@ import LineChart from './LineChart';
 import {
     useParams
   } from "react-router-dom";
+import SideNavbar from './SideNavbar';
 
 const { Buffer } = require('buffer/');
 
@@ -47,14 +48,17 @@ const Stock = () => {
   }, []);
 
     return (
-        <div>
+        <div className='stockPageContainer'>
+          <SideNavbar />
             {
                 stonk && 
                 <div>
-                {formatPriceByTwoDecimals(stonk.price)}
-                <LineChart stockPrice={formatPriceByTwoDecimals(stonk.price)} />  
+                  {formatPriceByTwoDecimals(stonk.price)}
+                  <LineChart stockPrice={formatPriceByTwoDecimals(stonk.price)} />  
                 </div>
             }
+
+            
         </div>
     )
 }

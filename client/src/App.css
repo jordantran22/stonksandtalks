@@ -139,6 +139,19 @@ body {
 }
 
 .categoryTitle {
-  color: #19c252;
+  color: white;
   /* box-shadow: 1px 1px 1px black; */
+}
+
+.popularStockName {
+  padding: 0.5rem;
+  font-size: large;
+}
+
+.popularStockName:hover {
+  color:#1cd459;
+}
+
+.stockPageContainer {
+  display: flex;
 }
