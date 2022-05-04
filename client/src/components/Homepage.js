@@ -4,7 +4,7 @@ import SideNavbar from './SideNavbar'
 const Homepage = () => {
   return (
     <div>
-      
+      <SideNavbar />
     </div>
   )
 }

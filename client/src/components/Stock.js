@@ -31,7 +31,7 @@ const Stock = () => {
         ws.onopen = function open() {
           console.log('connected');
           ws.send(JSON.stringify({
-            subscribe: [`${ticker.stockTicker}`]
+            subscribe: [`${ticker.stockTicker}`, 'DOGE-USD']
           }));
         };
       

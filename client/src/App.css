@@ -140,18 +140,65 @@ body {
 
 .categoryTitle {
   color: white;
+  margin-left: 0.5rem;
   /* box-shadow: 1px 1px 1px black; */
+}
+
+.popularStockNameContainer {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 1px 1px 3px black;
+  padding: 0.25rem;
 }
 
 .popularStockName {
   padding: 0.5rem;
   font-size: large;
+  font-weight: 500;
 }
 
 .popularStockName:hover {
   color:#1cd459;
 }
 
+.popularStockLogo {
+  width: auto;
+  height: auto;
+  border-radius: 20px;
+  padding: 0.25rem;
+}
+
 .stockPageContainer {
   display: flex;
+}
+
+.stockPrice {
+  color: #1cd459;
+  font-size: large;
+  margin: 0.25rem;
+  margin-right: 0.75rem;
+  font-weight: bold;
+}
+
+.stockPriceActionPositive {
+  display: flex;
+  color: #1cd459;
+  font-size: large;
+  font-weight: bold;
+}
+
+.stockPriceActionNegative {
+  display: flex;
+  color: rgb(241, 52, 52);
+  font-size: large;
+  font-weight: bold;
+}
+
+.popularStockPriceActionContainer {
+  margin: 0.25rem;
+  margin-right: 0.5rem;
+}
+
+.percentChange {
+  margin-left: 1rem;
 }
