@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Stock from './components/Stock';
 import Navbar from './components/Navbar';
+import Homepage from './components/Homepage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <BrowserRouter>
       <Navbar />
       <Routes>
+        <Route path="/" element={<Homepage />}></Route>
         <Route path="/stock/:stockTicker" element={<Stock />}></Route>
       </Routes>
       </BrowserRouter>,

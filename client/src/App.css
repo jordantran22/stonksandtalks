@@ -51,6 +51,7 @@ body {
   height: 7vh;
   position: fixed;
   width: 100vw;
+  box-shadow: 2px 2px 2px black;
 }
 
 .logo {
@@ -84,6 +85,7 @@ body {
   flex-direction: column;
   justify-content: center;
   padding: 0.75rem;
+  height: 5vh;
   border-radius: 10px;
   background-color: #3f4140;
   border: none;
@@ -100,6 +102,7 @@ body {
 
 .signUpButton {
     padding: 0.75rem;
+    height: 5vh;
     border-radius: 10px;
     background-color: #1cd459;
     border: none;
@@ -118,4 +121,24 @@ body {
   display: flex;
   position: absolute;
   right: 0;
+}
+
+.sidebarContainer {
+  display: flex;
+  flex-direction: column;
+  width: 15vw;
+  height: 100vh;
+  background-color: #222222;
+  box-shadow: 1px 1px 1px black;
+  color: white;
+}
+
+.categories {
+  margin-top: 4rem;
+
+}
+
+.categoryTitle {
+  color: #19c252;
+  /* box-shadow: 1px 1px 1px black; */
 }

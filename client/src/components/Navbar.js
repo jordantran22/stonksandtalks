@@ -12,12 +12,16 @@ const Navbar = () => {
         <div >
             <ul className='navbarLinks'>
                 <li className='navbarItem'>
-                    Search
+                    News
                 </li>
 
                 <li className='navbarItem'>
-                    Trending
+                    Forums
                 </li>
+
+                <l1 className='navbarItem'>
+                    Stocks
+                </l1>
             </ul>
         </div>
 
