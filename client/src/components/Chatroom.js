@@ -1,6 +1,21 @@
 import React from 'react'
+import io from 'socket.io-client';
+import { useEffect } from 'react';
 
-const Chatroom = () => {
+const socket = io.connect(process.env.React_App_SERVER_URL);
+
+const Chatroom = ({ticker}) => {
+
+  const joinRoom = () => {
+    socket.emit("join_room", ticker.stockTicker);
+  }
+
+
+  useEffect(() => {
+    joinRoom();
+  }, []);
+
+
   return (
     <div className='chatRoomContainer'>
        

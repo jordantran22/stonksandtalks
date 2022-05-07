@@ -59,7 +59,7 @@ const Stock = () => {
                 </div>
             }
 
-          <Chatroom />
+          <Chatroom ticker={ticker}/>
 
             
         </div>
