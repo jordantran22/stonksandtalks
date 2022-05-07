@@ -273,6 +273,11 @@ body {
   color: white;
 }
 
+.chatbar::placeholder {
+  color: rgb(218, 214, 214);
+  font-weight: bold;
+}
+
 .chatButton {
   padding: 1rem;
   border-radius: 10px;
@@ -319,4 +324,14 @@ body {
 .purpleColor {
   color:rgb(119, 0, 255);
   font-weight: bold;
+}
+
+
+.messageContainerBlurred {
+  filter: blur(4px);
+  position: absolute;
+}
+
+.termsandagreements {
+  filter: none;
 }

@@ -10,7 +10,6 @@ const Chatroom = ({ticker}) => {
   const [messageList, setMessageList] = useState([]);
   const [userConnectionToRoom, setUserConnectionToRoom] = useState(false);
   const randomColors = ["redColor", "greenColor", "blueColor", "purpleColor"];
-  const [userAuthorColor, setUserAuthorColor] = useState("");
 
   const randomAuthorNameColor = () => {
     // e.preventDefault();
@@ -29,7 +28,7 @@ const Chatroom = ({ticker}) => {
       console.log("sent message to server");
       const messageData = {
         room: ticker.stockTicker,
-        author: "gigachad",
+        author: "randomUser",
         message: currentMessage,
         time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
         color: randomAuthorNameColor()
@@ -79,7 +78,7 @@ const Chatroom = ({ticker}) => {
         </div>
 
         <div className='sendMessageContainer'>
-            <input type="text" className='chatbar' value={currentMessage} onChange={(event) => {
+            <input type="text" className='chatbar' placeholder='Chat with people!' value={currentMessage} onChange={(event) => {
               setCurrentMessage(event.target.value);
             }} onKeyPress={(event) => {
               event.key === "Enter" && sendMessage();

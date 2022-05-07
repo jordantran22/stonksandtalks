@@ -1,7 +1,6 @@
 import React from 'react'
 import { Line } from 'react-chartjs-2';
 import { useEffect, useState } from 'react';
-// import {CategoryScale} from 'chart.js';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -31,29 +30,36 @@ const LineChart = ({stockPrice}) => {
     let currentMonth = month[date.getMonth()];
     const labels = [month[date.getMonth() - 4], month[date.getMonth() - 3], month[date.getMonth() - 2],  month[date.getMonth() - 1]]
     //console.log(labels);
+    const [time, setCurrentTime] = useState([]);
 
     useEffect(() => {
         console.log("testing");
         setPrice(price => [...price, stockPrice]);
+        setCurrentTime(time => [...time, new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds()]);
         console.log(price);
     }, [stockPrice]);
 
     return (
         <div>
             <Line data={{
-                labels: price,
+                labels: time,
                 datasets: [
                     {
                         data: price,
-                        fill: true,
                         borderColor: 'rgb(75, 192, 192)',
-                        tension: 0.1
-                    }
-                ]
+                        tension: 0.1,
+                        fill: true,
+                        borderWidth: 1,
+                    },
+                ],
             }
             }
-            height={400}
-            width={600}/>
+            height={600}
+            width={800}
+            options={{
+                animation: false,
+            }}
+            responsive={true}/>
         </div>
     )
 }
