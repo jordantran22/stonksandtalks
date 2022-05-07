@@ -1,6 +1,7 @@
 import React from 'react'
 import io from 'socket.io-client';
 import { useEffect, useState } from 'react';
+import ScrollToBottom from 'react-scroll-to-bottom';
 
 const socket = io.connect(process.env.React_App_SERVER_URL);
 
@@ -8,6 +9,12 @@ const Chatroom = ({ticker}) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
   const [userConnectionToRoom, setUserConnectionToRoom] = useState(false);
+  const randomColors = ["redColor", "greenColor", "blueColor", "purpleColor"];
+  const [userAuthorColor, setUserAuthorColor] = useState("");
+
+  const randomAuthorNameColor = () => {
+    setUserAuthorColor(randomColors[Math.floor(Math.random()*randomColors.length)])
+  }
 
   const joinRoom = () => {
     socket.emit("join_room", ticker.stockTicker);
@@ -32,6 +39,7 @@ const Chatroom = ({ticker}) => {
   useEffect(() => {
     if(!userConnectionToRoom) {
       joinRoom();
+      randomAuthorNameColor();
     }
 
     socket.on("receive_message", (data) => {
@@ -48,24 +56,28 @@ const Chatroom = ({ticker}) => {
             <h2>Chat Room</h2>
         </div>
 
-        <div className='messageContainer'>
+        <div>
+          <ScrollToBottom className='messageContainer'>
             <div className='welcomeMessage'>Welcome to chat room!</div>
             {
               messageList.map((message) => {
                 return (
-                  <div>
-                    <div>{message.author}: </div>
-                    <div>{message.message}</div>
-                    <div>{message.time}</div>
+                  <div className='userMessage'>
+                    <div className={userAuthorColor}>{message.author}: </div>
+                    <div className='messageContent'>{message.message}</div>
+                    <div className='messageTime'>{message.time}</div>
                   </div>
                 )
               })
             }
+          </ScrollToBottom>
         </div>
 
         <div className='sendMessageContainer'>
             <input type="text" className='chatbar' onChange={(event) => {
               setCurrentMessage(event.target.value);
+            }} onKeyPress={(event) => {
+              event.key === "Enter" && sendMessage();
             }}/>
             <button className='chatButton' onClick={() => sendMessage()}>Chat</button>
         </div>

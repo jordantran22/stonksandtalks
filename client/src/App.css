@@ -248,6 +248,8 @@ body {
   right: 0;
   box-shadow:  0px -2px 0px rgb(57, 57, 57);
   padding: 1rem;
+  z-index: 1;
+  background-color: #222222;
 }
 
 .chatbar {
@@ -278,4 +280,41 @@ body {
   font-size: large;
   font-weight: bold;
   margin-right: 1rem;
+}
+
+.userMessage {
+  display: flex;
+  font-size: large;
+}
+
+.messageTime {
+  position: absolute;
+  right: 0;
+  margin-right: 1rem;
+  font-size: small;
+  color:rgb(121, 121, 121)
+}
+
+.messageContent {
+  margin-left: 0.5rem;
+}
+
+.redColor {
+  color:rgb(241, 52, 52);
+  font-weight: bold;
+}
+
+.greenColor {
+  color:#1cd459;
+  font-weight: bold;
+}
+
+.blueColor {
+  color:#61dafb;
+  font-weight: bold;
+}
+
+.purpleColor {
+  color:rgb(119, 0, 255);
+  font-weight: bold;
 }
