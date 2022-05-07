@@ -4,9 +4,7 @@ const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
 var yahooFinance = require('yahoo-finance');
- var util = require('util');
 
-// require('colors');
 app.use(cors());
 
 
@@ -40,10 +38,6 @@ io.on("connection", (socket) => {
 });
 
 app.get('/historic/price/:ticker', (req, res) => {
-    // console.log("testing endpoint");
-    // console.log(req.params.ticker);
-
-
     var SYMBOL = req.params.ticker;
 
     yahooFinance.historical({
@@ -63,10 +57,6 @@ app.get('/historic/price/:ticker', (req, res) => {
             historicPrices.push(quote.close);
         })
 
-        // console.log(historicDates);
-        // console.log(historicPrices);
-        
-        //res.send({historicData: quotes.reverse()});
         res.send({
             historicData: {
                 prices: historicPrices.reverse(),
@@ -74,20 +64,6 @@ app.get('/historic/price/:ticker', (req, res) => {
             }
         });
     }
-    // console.log(util.format(
-    //     '=== %s (%d) ===',
-    //     SYMBOL,
-    //     quotes.length
-    // ).cyan);
-    // if (quotes[0]) {
-    //     console.log(
-    //     '%s\n...\n%s',
-    //     JSON.stringify(quotes[0], null, 2),
-    //     JSON.stringify(quotes[quotes.length - 1], null, 2)
-    //     );
-    // } else {
-    //     console.log('N/A');
-    // }
     })
 })
 

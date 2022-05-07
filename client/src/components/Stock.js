@@ -78,8 +78,12 @@ const Stock = () => {
           <SideNavbar />
                 <div>
                   {/* {formatPriceByTwoDecimals(stonk.price)} */}
-                  <LineChart historicPrices={historicPrices} historicDates={historicDates} />  
-                </div>
+                  <LineChart historicPrices={historicPrices} 
+                             historicDates={historicDates} 
+                             setHistoricPrices={setHistoricPrices} 
+                             setHistoricDates={setHistoricDates} 
+                             stockPrice={stonk !== null ? formatPriceByTwoDecimals(stonk.price) : stonk}  />  
+              </div>
 
 
           <Chatroom ticker={ticker}/>
