@@ -232,6 +232,7 @@ body {
   margin-top: 1.5rem;
   height: 70vh;
   overflow-y: scroll;
+  color: white;
 }
 
 .chatRoomHeader {
@@ -259,6 +260,7 @@ body {
   margin-bottom: 2rem;
   margin-right: 2rem;
   z-index: 1000 !important;
+  color: white;
 }
 
 .chatbar:focus {
