@@ -13,7 +13,10 @@ const Chatroom = ({ticker}) => {
   const [userAuthorColor, setUserAuthorColor] = useState("");
 
   const randomAuthorNameColor = () => {
-    setUserAuthorColor(randomColors[Math.floor(Math.random()*randomColors.length)])
+    // e.preventDefault();
+    //setUserAuthorColor(randomColors[Math.floor(Math.random()*randomColors.length)]);
+    console.log("color being called")
+    return(randomColors[Math.floor(Math.random()*randomColors.length)]);
   }
 
   const joinRoom = () => {
@@ -28,18 +31,20 @@ const Chatroom = ({ticker}) => {
         room: ticker.stockTicker,
         author: "gigachad",
         message: currentMessage,
-        time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes()
+        time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+        color: randomAuthorNameColor()
       };
 
       await socket.emit("send_message", messageData);
       setMessageList((messageList) => [...messageList, messageData]);
+      setCurrentMessage("");
     }
   };
 
   useEffect(() => {
     if(!userConnectionToRoom) {
       joinRoom();
-      randomAuthorNameColor();
+      //randomAuthorNameColor();
     }
 
     socket.on("receive_message", (data) => {
@@ -63,7 +68,7 @@ const Chatroom = ({ticker}) => {
               messageList.map((message) => {
                 return (
                   <div className='userMessage'>
-                    <div className={userAuthorColor}>{message.author}: </div>
+                    <div className={message.color}>{message.author}: </div>
                     <div className='messageContent'>{message.message}</div>
                     <div className='messageTime'>{message.time}</div>
                   </div>
@@ -74,7 +79,7 @@ const Chatroom = ({ticker}) => {
         </div>
 
         <div className='sendMessageContainer'>
-            <input type="text" className='chatbar' onChange={(event) => {
+            <input type="text" className='chatbar' value={currentMessage} onChange={(event) => {
               setCurrentMessage(event.target.value);
             }} onKeyPress={(event) => {
               event.key === "Enter" && sendMessage();

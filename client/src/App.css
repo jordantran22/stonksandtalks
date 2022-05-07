@@ -231,8 +231,10 @@ body {
   margin-left: 1rem;
   margin-top: 1.5rem;
   height: 70vh;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   color: white;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .chatRoomHeader {
