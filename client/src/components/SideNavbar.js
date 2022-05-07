@@ -70,7 +70,7 @@ const SideNavbar = () => {
                        )
                     })
                 }
-                <h2 className='categoryTitle'>Wall Street Bets💰</h2>
+                <h2 className='categoryTitle'>Wall Street Bets🚀</h2>
                 {
                     wallStreetBets.map((stock) => {
                        return( 

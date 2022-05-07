@@ -12,7 +12,6 @@ const { Buffer } = require('buffer/');
 
 const Stock = () => {
     const [stonk, setStonk] = useState(null);
-    const [stockHistoricData, setStockHistoricData] = useState([]);
     const [historicPrices, setHistoricPrices] = useState([]);
     const [historicDates, setHistoricDates] = useState([]);
     const ticker = useParams();
@@ -69,12 +68,24 @@ const Stock = () => {
           <SideNavbar />
                 <div className='lineChart'>
                   {/* {formatPriceByTwoDecimals(stonk.price)} */}
-                  <LineChart historicPrices={historicPrices} 
+                  {
+                    historicDates.length === 0 && historicPrices.length === 0 ?
+                    <img className='loadingGIF' src="https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif" />
+                    // <img src="https://flevix.com/wp-content/uploads/2021/08/Multi-Circle-Preloader.gif" />
+                    :
+                    <LineChart historicPrices={historicPrices} 
+                    historicDates={historicDates} 
+                    setHistoricPrices={setHistoricPrices} 
+                    setHistoricDates={setHistoricDates} 
+                    stockPrice={stonk !== null ? formatPriceByTwoDecimals(stonk.price) : stonk}
+                    ticker={ticker.stockTicker}  />  
+                  }
+                  {/* <LineChart historicPrices={historicPrices} 
                              historicDates={historicDates} 
                              setHistoricPrices={setHistoricPrices} 
                              setHistoricDates={setHistoricDates} 
                              stockPrice={stonk !== null ? formatPriceByTwoDecimals(stonk.price) : stonk}
-                             ticker={ticker.stockTicker}  />  
+                             ticker={ticker.stockTicker}  />   */}
                 </div>
 
 

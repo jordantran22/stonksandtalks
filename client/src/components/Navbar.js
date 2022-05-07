@@ -22,6 +22,10 @@ const Navbar = () => {
                 <l1 className='navbarItem'>
                     Stocks
                 </l1>
+
+                <l1 className='navbarItem'>
+                    Crypto
+                </l1>
             </ul>
         </div>
 
