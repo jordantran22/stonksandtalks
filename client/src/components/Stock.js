@@ -12,15 +12,29 @@ const { Buffer } = require('buffer/');
 
 const Stock = () => {
     const [stonk, setStonk] = useState(null);
+    const [stockHistoricData, setStockHistoricData] = useState([]);
     const ticker = useParams();
 
 
     const formatPriceByTwoDecimals = (price) => {
       return `${price.toFixed(2)}`;
     }
+
+    const getStockHistoricPriceInformation = async () => {
+      const userInformation = {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+      }
+
+      const res = await fetch(`${process.env.React_App_SERVER_URL}/historic/price/${ticker.stockTicker}`, userInformation);
+      const data = await res.json();
+      setStockHistoricData(data);
+      console.log(data);
+    }
   
    
   useEffect(() => {
+    getStockHistoricPriceInformation();
     const ws = new WebSocket('wss://streamer.finance.yahoo.com');
     protobuf.load('../YPricingData.proto', (err, root) => {
         if(err) {
@@ -55,7 +69,7 @@ const Stock = () => {
                 stonk && 
                 <div>
                   {formatPriceByTwoDecimals(stonk.price)}
-                  <LineChart stockPrice={formatPriceByTwoDecimals(stonk.price)} />  
+                  <LineChart stockHistoricData={stockHistoricData} stockPrice={formatPriceByTwoDecimals(stonk.price)} />  
                 </div>
             }
 

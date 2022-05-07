@@ -23,7 +23,7 @@ import {
     );
 
 
-const LineChart = ({stockPrice}) => {
+const LineChart = ({stockHistoricData, stockPrice}) => {
     const [price, setPrice] = useState([]);
     const date = new Date();
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -58,6 +58,11 @@ const LineChart = ({stockPrice}) => {
             width={800}
             options={{
                 animation: false,
+                elements: {
+                    point: {
+                        radius: 1
+                    }
+                }
             }}
             responsive={true}/>
         </div>
