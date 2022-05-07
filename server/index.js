@@ -40,8 +40,8 @@ io.on("connection", (socket) => {
 });
 
 app.get('/historic/price/:ticker', (req, res) => {
-    console.log("testing endpoint");
-    console.log(req.params.ticker);
+    // console.log("testing endpoint");
+    // console.log(req.params.ticker);
 
 
     var SYMBOL = req.params.ticker;
@@ -55,7 +55,24 @@ app.get('/historic/price/:ticker', (req, res) => {
     if (err) { throw err; } 
     else {
         console.log(quotes);
-        res.send({historicData: quotes});
+        var historicDates = [];
+        var historicPrices = [];
+        
+        quotes.map((quote) => {
+            historicDates.push(quote.date);
+            historicPrices.push(quote.close);
+        })
+
+        // console.log(historicDates);
+        // console.log(historicPrices);
+        
+        //res.send({historicData: quotes.reverse()});
+        res.send({
+            historicData: {
+                prices: historicPrices.reverse(),
+                dates: historicDates.reverse()
+            }
+        });
     }
     // console.log(util.format(
     //     '=== %s (%d) ===',

@@ -13,6 +13,8 @@ const { Buffer } = require('buffer/');
 const Stock = () => {
     const [stonk, setStonk] = useState(null);
     const [stockHistoricData, setStockHistoricData] = useState([]);
+    const [historicPrices, setHistoricPrices] = useState([]);
+    const [historicDates, setHistoricDates] = useState([]);
     const ticker = useParams();
 
 
@@ -28,10 +30,19 @@ const Stock = () => {
 
       const res = await fetch(`${process.env.React_App_SERVER_URL}/historic/price/${ticker.stockTicker}`, userInformation);
       const data = await res.json();
-      setStockHistoricData(data);
       console.log(data);
+
+      // data.historicData.map((quote) => {
+      //       setHistoricDates(historicDates => [...historicDates, quote.date]);
+      //       setHistoricPrice(historicPrice => [...historicPrice, quote.close]);
+      // })
+
+      setHistoricDates(data.historicData.dates);
+      setHistoricPrices(data.historicData.prices);
+
+      // console.log(historicDates);
+      // console.log(historicPrices);
     }
-  
    
   useEffect(() => {
     getStockHistoricPriceInformation();
@@ -65,13 +76,11 @@ const Stock = () => {
     return (
         <div className='stockPageContainer'>
           <SideNavbar />
-            {
-                stonk && 
                 <div>
-                  {formatPriceByTwoDecimals(stonk.price)}
-                  <LineChart stockHistoricData={stockHistoricData} stockPrice={formatPriceByTwoDecimals(stonk.price)} />  
+                  {/* {formatPriceByTwoDecimals(stonk.price)} */}
+                  <LineChart historicPrices={historicPrices} historicDates={historicDates} />  
                 </div>
-            }
+
 
           <Chatroom ticker={ticker}/>
 

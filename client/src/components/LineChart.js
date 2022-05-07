@@ -23,7 +23,9 @@ import {
     );
 
 
-const LineChart = ({stockHistoricData, stockPrice}) => {
+const LineChart = ({historicPrices, historicDates, stockPrice}) => {
+      console.log(historicDates);
+      console.log(historicPrices);
     const [price, setPrice] = useState([]);
     const date = new Date();
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -32,20 +34,21 @@ const LineChart = ({stockHistoricData, stockPrice}) => {
     //console.log(labels);
     const [time, setCurrentTime] = useState([]);
 
+
     useEffect(() => {
-        console.log("testing");
-        setPrice(price => [...price, stockPrice]);
-        setCurrentTime(time => [...time, new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds()]);
-        console.log(price);
-    }, [stockPrice]);
+        // console.log("testing");
+        // setPrice(price => [...price, stockPrice]);
+        // setCurrentTime(time => [...time, new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds()]);
+        // console.log(price);
+    }, [stockPrice, historicPrices, historicDates]);
 
     return (
         <div>
             <Line data={{
-                labels: time,
+                labels: historicDates,
                 datasets: [
                     {
-                        data: price,
+                        data: historicPrices,
                         borderColor: 'rgb(75, 192, 192)',
                         tension: 0.1,
                         fill: true,
@@ -54,13 +57,13 @@ const LineChart = ({stockHistoricData, stockPrice}) => {
                 ],
             }
             }
-            height={600}
-            width={800}
+            height={700}
+            width={900}
             options={{
                 animation: false,
                 elements: {
                     point: {
-                        radius: 1
+                        radius: 0
                     }
                 }
             }}
