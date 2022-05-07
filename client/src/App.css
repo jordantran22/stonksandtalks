@@ -335,3 +335,12 @@ body {
 .termsandagreements {
   filter: none;
 }
+
+.lineChart {
+  margin-top: 5rem;
+}
+
+.ticker {
+  color: white;
+  margin: 1rem;
+}

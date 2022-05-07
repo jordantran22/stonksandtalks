@@ -23,25 +23,16 @@ const Stock = () => {
     }
 
     const getStockHistoricPriceInformation = async () => {
-      const userInformation = {
+      const requestInfo = {
           method: 'GET',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
       }
 
-      const res = await fetch(`${process.env.React_App_SERVER_URL}/historic/price/${ticker.stockTicker}`, userInformation);
+      const res = await fetch(`${process.env.React_App_SERVER_URL}/historic/price/${ticker.stockTicker}`, requestInfo);
       const data = await res.json();
       console.log(data);
-
-      // data.historicData.map((quote) => {
-      //       setHistoricDates(historicDates => [...historicDates, quote.date]);
-      //       setHistoricPrice(historicPrice => [...historicPrice, quote.close]);
-      // })
-
       setHistoricDates(data.historicData.dates);
       setHistoricPrices(data.historicData.prices);
-
-      // console.log(historicDates);
-      // console.log(historicPrices);
     }
    
   useEffect(() => {
@@ -76,19 +67,18 @@ const Stock = () => {
     return (
         <div className='stockPageContainer'>
           <SideNavbar />
-                <div>
+                <div className='lineChart'>
                   {/* {formatPriceByTwoDecimals(stonk.price)} */}
                   <LineChart historicPrices={historicPrices} 
                              historicDates={historicDates} 
                              setHistoricPrices={setHistoricPrices} 
                              setHistoricDates={setHistoricDates} 
-                             stockPrice={stonk !== null ? formatPriceByTwoDecimals(stonk.price) : stonk}  />  
-              </div>
+                             stockPrice={stonk !== null ? formatPriceByTwoDecimals(stonk.price) : stonk}
+                             ticker={ticker.stockTicker}  />  
+                </div>
 
 
           <Chatroom ticker={ticker}/>
-
-            
         </div>
     )
 }
