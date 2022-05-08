@@ -19,7 +19,7 @@ const Stock = () => {
 
 
     const formatPriceByTwoDecimals = (price) => {
-      return `$${price.toFixed(2)}`;
+      return `${price.toFixed(2)}`;
     }
 
     const getStockHistoricPriceInformation = async () => {
@@ -90,9 +90,15 @@ const Stock = () => {
                       <div className='stockPageHeader'>
                         <h1 className='ticker'>{ticker.stockTicker}</h1>
                         {stonk !== null ? 
-                          <h1>{formatPriceByTwoDecimals(stonk.price)}</h1> 
+                          <h1 className={stonk.changePercent > 0 ? 'greenColor' : 'redColor'}>${formatPriceByTwoDecimals(stonk.price)} ({formatPriceByTwoDecimals(stonk.change)}, {formatPriceByTwoDecimals(stonk.changePercent)}%)</h1> 
                           : 
-                          <h1>{formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketPrice)}</h1>}
+                          <h1 className={recentStockPriceInfo.regularMarketChangePercent > 0 ? 'greenColor' : 'redColor'}>${recentStockPriceInfo.regularMarketPrice} 
+                            {recentStockPriceInfo.regularMarketChangePercent > 0 ?
+                             ' (+'+ formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChange) + ', ' + formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChangePercent * 100) + '%)' 
+                             : 
+                             ' (' + formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChange) + ', '+  formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChangePercent * 100) + '%)'
+                            }
+                          </h1>}
                       </div>
 
                       <LineChart historicPrices={historicPrices} 
