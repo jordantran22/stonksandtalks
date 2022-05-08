@@ -24,8 +24,8 @@ import {
 
 
 const LineChart = ({historicPrices, historicDates, setHistoricPrices, setHistoricDates, stockPrice, ticker}) => {
-      console.log(historicDates);
-      console.log(historicPrices);
+    //   console.log(historicDates);
+    //   console.log(historicPrices);
     const [price, setPrice] = useState([]);
     const date = new Date();
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -43,7 +43,6 @@ const LineChart = ({historicPrices, historicDates, setHistoricPrices, setHistori
 
     return (
         <div>
-            <h1 className='ticker'>{ticker}</h1>
             <Line data={{
                 labels: historicDates,
                 datasets: [
@@ -68,29 +67,6 @@ const LineChart = ({historicPrices, historicDates, setHistoricPrices, setHistori
                         radius: 0
                     }
                 },
-                scales: {
-                    xAxes: [ {
-                        type: 'time',
-                        display: true,
-                        scaleLabel: {
-                          display: true,
-                          labelString: 'Date'
-                        },
-                        ticks: {
-                          major: {
-                            fontStyle: 'bold',
-                            fontColor: '#FF0000'
-                          }
-                        }
-                      } ],
-                      yAxes: [ {
-                        display: true,
-                        scaleLabel: {
-                          display: true,
-                          labelString: 'Price USD'
-                        }
-                      } ]
-                  }     
             }}
             responsive={true}/>
         </div>

@@ -14,11 +14,12 @@ const Stock = () => {
     const [stonk, setStonk] = useState(null);
     const [historicPrices, setHistoricPrices] = useState([]);
     const [historicDates, setHistoricDates] = useState([]);
+    const [recentStockPriceInfo, setRecentStockPriceInfo] = useState([]);
     const ticker = useParams();
 
 
     const formatPriceByTwoDecimals = (price) => {
-      return `${price.toFixed(2)}`;
+      return `$${price.toFixed(2)}`;
     }
 
     const getStockHistoricPriceInformation = async () => {
@@ -33,9 +34,23 @@ const Stock = () => {
       setHistoricDates(data.historicData.dates);
       setHistoricPrices(data.historicData.prices);
     }
+
+    const getRecentStockPriceInformation = async () => {
+      const requestInfo = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+      }
+
+      const res = await fetch(`${process.env.React_App_SERVER_URL}/stock/${ticker.stockTicker}/price`, requestInfo);
+      const data = await res.json();
+      setRecentStockPriceInfo(data.currentPriceData.price);
+
+      console.log(data);
+    }
    
   useEffect(() => {
     getStockHistoricPriceInformation();
+    getRecentStockPriceInformation()
     const ws = new WebSocket('wss://streamer.finance.yahoo.com');
     protobuf.load('../YPricingData.proto', (err, root) => {
         if(err) {
@@ -67,25 +82,27 @@ const Stock = () => {
         <div className='stockPageContainer'>
           <SideNavbar />
                 <div className='lineChart'>
-                  {/* {formatPriceByTwoDecimals(stonk.price)} */}
                   {
                     historicDates.length === 0 && historicPrices.length === 0 ?
                     <img className='loadingGIF' src="https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif" />
-                    // <img src="https://flevix.com/wp-content/uploads/2021/08/Multi-Circle-Preloader.gif" />
                     :
-                    <LineChart historicPrices={historicPrices} 
-                    historicDates={historicDates} 
-                    setHistoricPrices={setHistoricPrices} 
-                    setHistoricDates={setHistoricDates} 
-                    stockPrice={stonk !== null ? formatPriceByTwoDecimals(stonk.price) : stonk}
-                    ticker={ticker.stockTicker}  />  
+                    <div>
+                      <div className='stockPageHeader'>
+                        <h1 className='ticker'>{ticker.stockTicker}</h1>
+                        {stonk !== null ? 
+                          <h1>{formatPriceByTwoDecimals(stonk.price)}</h1> 
+                          : 
+                          <h1>{formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketPrice)}</h1>}
+                      </div>
+
+                      <LineChart historicPrices={historicPrices} 
+                      historicDates={historicDates} 
+                      setHistoricPrices={setHistoricPrices} 
+                      setHistoricDates={setHistoricDates} 
+                      stockPrice={stonk !== null ? formatPriceByTwoDecimals(stonk.price) : stonk}
+                      ticker={ticker.stockTicker}  />  
+                    </div>
                   }
-                  {/* <LineChart historicPrices={historicPrices} 
-                             historicDates={historicDates} 
-                             setHistoricPrices={setHistoricPrices} 
-                             setHistoricDates={setHistoricDates} 
-                             stockPrice={stonk !== null ? formatPriceByTwoDecimals(stonk.price) : stonk}
-                             ticker={ticker.stockTicker}  />   */}
                 </div>
 
 

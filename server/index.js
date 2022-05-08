@@ -48,7 +48,7 @@ app.get('/historic/price/:ticker', (req, res) => {
     }, function (err, quotes) {
     if (err) { throw err; } 
     else {
-        console.log(quotes);
+       // console.log(quotes);
         var historicDates = [];
         var historicPrices = [];
         
@@ -65,7 +65,24 @@ app.get('/historic/price/:ticker', (req, res) => {
         });
     }
     })
-})
+});
+
+app.get('/stock/:stockTicker/price', (req, res) => {
+    var SYMBOL = req.params.stockTicker;
+
+    yahooFinance.quote({
+        symbol: `${SYMBOL}`,
+        modules: ['price']       // optional; default modules.
+      }, function(err, quote) {
+          if(err) {
+              console.log(err);
+              return;
+          }
+          console.log(quote);
+
+          res.send({currentPriceData: quote});
+      });
+} )
 
 
 server.listen(process.env.PORT || 5000, () => {

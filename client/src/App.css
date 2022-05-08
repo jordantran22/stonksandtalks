@@ -342,10 +342,16 @@ body {
 
 .ticker {
   color: white;
-  margin: 1rem;
+  margin-right: 1.5rem;
 }
 
 .loadingGIF {
   display: flex;
   justify-content: center;
+}
+
+.stockPageHeader {
+  display: flex;
+  color: white;
+  margin-left: 1rem;
 }
