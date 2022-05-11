@@ -17,6 +17,7 @@ function App() {
     render(
       <BrowserRouter>
       <Navbar />
+      <SideNavbar />
       <Routes>
         <Route path="/" element={<Homepage />}></Route>
         <Route path="/stock/:stockTicker" element={<Stock />}></Route>

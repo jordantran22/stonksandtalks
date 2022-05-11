@@ -133,6 +133,7 @@ body {
   box-shadow: 1px 1px 1px rgb(57, 57, 57);
   color: white;
   position: fixed;
+  margin-right: 30rem;
 }
 
 .categories {
@@ -172,6 +173,8 @@ body {
 
 .stockPageContainer {
   display: flex;
+  margin: auto;
+  width: 60vw;
 }
 
 .stockPrice {
@@ -359,10 +362,12 @@ body {
 
 .homepageContainer {
   display: flex;
+
+  margin: auto;
+  width: 60vw;
 }
 
 .newsContainer {
-  margin-top: 4rem;
-  margin-left: 20rem;
   color: white;
+    margin-top: 4rem;
 }

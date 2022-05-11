@@ -5,7 +5,6 @@ import News from './News'
 const Homepage = () => {
   return (
     <div className='homepageContainer'>
-      <SideNavbar />
       <News />
 
 

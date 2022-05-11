@@ -83,7 +83,6 @@ const Stock = () => {
 
     return (
         <div className='stockPageContainer'>
-          <SideNavbar />
                 <div className='lineChart'>
                   {
                     historicDates.length === 0 && historicPrices.length === 0 ?
