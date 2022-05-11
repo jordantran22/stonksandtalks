@@ -132,6 +132,7 @@ body {
   background-color: #222222;
   box-shadow: 1px 1px 1px rgb(57, 57, 57);
   color: white;
+  position: fixed;
 }
 
 .categories {
@@ -354,4 +355,14 @@ body {
   display: flex;
   color: white;
   margin-left: 1rem;
+}
+
+.homepageContainer {
+  display: flex;
+}
+
+.newsContainer {
+  margin-top: 4rem;
+  margin-left: 20rem;
+  color: white;
 }
