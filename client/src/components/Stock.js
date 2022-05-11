@@ -24,19 +24,6 @@ const Stock = () => {
       return `${price.toFixed(2)}`;
     }
 
-    const getStockHistoricPriceInformation = async () => {
-      const requestInfo = {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-      }
-
-      const res = await fetch(`${process.env.React_App_SERVER_URL}/historic/price/${ticker.stockTicker}`, requestInfo);
-      const data = await res.json();
-      console.log(data);
-      setHistoricDates(data.historicData.dates);
-      setHistoricPrices(data.historicData.prices);
-    }
-
     const setTimeRangeToLiveTime = () => {
       setChartTimeRangeSelected("live-time");
       setChartLiveTimeStatus(true);
@@ -46,7 +33,7 @@ const Stock = () => {
 
     const setTimeRangeToOneYear = () => {
       setChartTimeRangeSelected("one-year");
-      getStockHistoricPriceInformation();
+      getStockPriceInfo();
       setChartLiveTimeStatus(false);
     }
 

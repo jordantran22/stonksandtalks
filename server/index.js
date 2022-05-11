@@ -37,36 +37,6 @@ io.on("connection", (socket) => {
     });
 });
 
-app.get('/historic/price/:ticker', (req, res) => {
-    var SYMBOL = req.params.ticker;
-
-    yahooFinance.historical({
-    symbol: SYMBOL,
-    from: '2021-01-01',
-    to: '2022-5-11',
-    period: 'd'
-    }, function (err, quotes) {
-    if (err) { throw err; } 
-    else {
-       // console.log(quotes);
-        var historicDates = [];
-        var historicPrices = [];
-        
-        quotes.map((quote) => {
-            historicDates.push(quote.date);
-            historicPrices.push(quote.close);
-        })
-
-        res.send({
-            historicData: {
-                prices: historicPrices.reverse(),
-                dates: historicDates.reverse()
-            }
-        });
-    }
-    })
-});
-
 app.get('/stock/:stockTicker/price', (req, res) => {
     var SYMBOL = req.params.stockTicker;
     var currentDate = new Date(Date.now());
@@ -99,7 +69,7 @@ app.get('/stock/:stockTicker/price', (req, res) => {
                 var historicPrices = [];
                 
                 quotes.map((quote) => {
-                    historicDates.push(quote.date);
+                    historicDates.push(quote.date.toJSON().substring(0,10));
                     historicPrices.push(quote.close);
                 })
     
