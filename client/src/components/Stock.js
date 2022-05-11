@@ -15,6 +15,8 @@ const Stock = () => {
     const [historicPrices, setHistoricPrices] = useState([]);
     const [historicDates, setHistoricDates] = useState([]);
     const [recentStockPriceInfo, setRecentStockPriceInfo] = useState([]);
+    const [chartTimeRangeSelected, setChartTimeRangeSelected] = useState("one-year");
+    const [chartLiveTimeStatus, setChartLiveTimeStatus] = useState(false);
     const ticker = useParams();
 
 
@@ -47,10 +49,24 @@ const Stock = () => {
 
       console.log(data);
     }
+
+    const setTimeRangeToLiveTime = () => {
+      setChartTimeRangeSelected("live-time");
+      setChartLiveTimeStatus(true);
+      setHistoricPrices([stonk.price]);
+      setHistoricDates([new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds()]);
+    }
+
+    const setTimeRangeToOneYear = () => {
+      setChartTimeRangeSelected("one-year");
+      getStockHistoricPriceInformation();
+      setChartLiveTimeStatus(false);
+    }
    
   useEffect(() => {
+    getRecentStockPriceInformation();
     getStockHistoricPriceInformation();
-    getRecentStockPriceInformation()
+
     const ws = new WebSocket('wss://streamer.finance.yahoo.com');
     protobuf.load('../YPricingData.proto', (err, root) => {
         if(err) {
@@ -90,13 +106,13 @@ const Stock = () => {
                       <div className='stockPageHeader'>
                         <h1 className='ticker'>{ticker.stockTicker}</h1>
                         {stonk !== null ? 
-                          <h1 className={stonk.changePercent > 0 ? 'greenColor' : 'redColor'}>${formatPriceByTwoDecimals(stonk.price)} ({formatPriceByTwoDecimals(stonk.change)}, {formatPriceByTwoDecimals(stonk.changePercent)}%)</h1> 
+                          <h1 className={stonk.changePercent > 0 ? 'greenColor' : 'redColor'}>${formatPriceByTwoDecimals(stonk.price)} ({formatPriceByTwoDecimals(stonk.change)} USD, {formatPriceByTwoDecimals(stonk.changePercent)}%)</h1> 
                           : 
                           <h1 className={recentStockPriceInfo.regularMarketChangePercent > 0 ? 'greenColor' : 'redColor'}>${recentStockPriceInfo.regularMarketPrice} 
                             {recentStockPriceInfo.regularMarketChangePercent > 0 ?
-                             ' (+'+ formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChange) + ', ' + formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChangePercent * 100) + '%)' 
+                             ' (+'+ formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChange) + ' USD, ' + formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChangePercent * 100) + '%)' 
                              : 
-                             ' (' + formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChange) + ', '+  formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChangePercent * 100) + '%)'
+                             ' (' + formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChange) + ' USD, '+  formatPriceByTwoDecimals(recentStockPriceInfo.regularMarketChangePercent * 100) + '%)'
                             }
                           </h1>}
                       </div>
@@ -106,7 +122,12 @@ const Stock = () => {
                       setHistoricPrices={setHistoricPrices} 
                       setHistoricDates={setHistoricDates} 
                       stockPrice={stonk !== null ? formatPriceByTwoDecimals(stonk.price) : stonk}
-                      ticker={ticker.stockTicker}  />  
+                      ticker={ticker.stockTicker}
+                      chartTimeRangeSelected={chartTimeRangeSelected}  
+                      chartLiveTimeStatus={chartLiveTimeStatus}/>  
+
+                      <button className='loginButton' onClick={() => setTimeRangeToOneYear()}>1 Year</button>
+                      <button className='loginButton' onClick={() => setTimeRangeToLiveTime()}>Live Time</button>
                     </div>
                   }
                 </div>

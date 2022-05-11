@@ -43,7 +43,7 @@ app.get('/historic/price/:ticker', (req, res) => {
     yahooFinance.historical({
     symbol: SYMBOL,
     from: '2021-01-01',
-    to: '2022-5-7',
+    to: '2022-5-11',
     period: 'd'
     }, function (err, quotes) {
     if (err) { throw err; } 

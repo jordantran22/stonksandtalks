@@ -11,6 +11,7 @@ import {
     Tooltip,
     Legend,
     } from 'chart.js';
+import useYahooWebsocket from '../hooks/useYahooWebsocket';
     
     ChartJS.register(
     CategoryScale,
@@ -23,9 +24,11 @@ import {
     );
 
 
-const LineChart = ({historicPrices, historicDates, setHistoricPrices, setHistoricDates, stockPrice, ticker}) => {
+
+const LineChart = ({historicPrices, historicDates, setHistoricPrices, setHistoricDates, stockPrice, ticker, chartTimeRangeSelected, chartLiveTimeStatus}) => {
     //   console.log(historicDates);
     //   console.log(historicPrices);
+    // console.log(stockPrice);
     const [price, setPrice] = useState([]);
     const date = new Date();
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -33,13 +36,12 @@ const LineChart = ({historicPrices, historicDates, setHistoricPrices, setHistori
     const labels = [month[date.getMonth() - 4], month[date.getMonth() - 3], month[date.getMonth() - 2],  month[date.getMonth() - 1]]
     const [time, setCurrentTime] = useState([]);
 
-
     useEffect(() => {
-        if(stockPrice !== null) {
+        if(chartTimeRangeSelected === "live-time" && chartLiveTimeStatus && stockPrice !== null) {
             setHistoricPrices(historicPrices => [...historicPrices, stockPrice]);
-            setHistoricDates(historicDates => [...historicDates, new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds()])
+            setHistoricDates(historicDates => [...historicDates, new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes() + ":" + new Date(Date.now()).getSeconds()]);
         }
-    }, [stockPrice]);
+    }, [chartTimeRangeSelected, stockPrice]);
 
     return (
         <div>
