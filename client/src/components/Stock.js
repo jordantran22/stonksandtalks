@@ -14,7 +14,7 @@ const Stock = () => {
     const [stonk, setStonk] = useState(null);
     const [historicPrices, setHistoricPrices] = useState([]);
     const [historicDates, setHistoricDates] = useState([]);
-    const [recentStockPriceInfo, setRecentStockPriceInfo] = useState([]);
+    const [recentStockPriceInfo, setRecentStockPriceInfo] = useState({});
     const [chartTimeRangeSelected, setChartTimeRangeSelected] = useState("one-year");
     const [chartLiveTimeStatus, setChartLiveTimeStatus] = useState(false);
     const ticker = useParams();
@@ -37,19 +37,6 @@ const Stock = () => {
       setHistoricPrices(data.historicData.prices);
     }
 
-    const getRecentStockPriceInformation = async () => {
-      const requestInfo = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-      }
-
-      const res = await fetch(`${process.env.React_App_SERVER_URL}/stock/${ticker.stockTicker}/price`, requestInfo);
-      const data = await res.json();
-      setRecentStockPriceInfo(data.currentPriceData.price);
-
-      console.log(data);
-    }
-
     const setTimeRangeToLiveTime = () => {
       setChartTimeRangeSelected("live-time");
       setChartLiveTimeStatus(true);
@@ -62,10 +49,23 @@ const Stock = () => {
       getStockHistoricPriceInformation();
       setChartLiveTimeStatus(false);
     }
+
+    const getStockPriceInfo = async () => {
+      const requestInfo = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+      }
+
+      const res = await fetch(`${process.env.React_App_SERVER_URL}/stock/${ticker.stockTicker}/price`, requestInfo);
+      const data = await res.json();
+
+      setRecentStockPriceInfo(data.stockInfo.recentPrice.price);
+      setHistoricDates(data.stockInfo.historicData.dates);
+      setHistoricPrices(data.stockInfo.historicData.prices);
+    }
    
   useEffect(() => {
-    getRecentStockPriceInformation();
-    getStockHistoricPriceInformation();
+    getStockPriceInfo();
 
     const ws = new WebSocket('wss://streamer.finance.yahoo.com');
     protobuf.load('../YPricingData.proto', (err, root) => {
@@ -89,7 +89,7 @@ const Stock = () => {
         ws.onmessage = function incoming(message) {
           const next = (Yaticker.decode(new Buffer(message.data, 'base64')));
           setStonk(next);
-          console.log(next);
+       //   console.log(next);
         }
     });
   }, []);

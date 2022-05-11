@@ -69,6 +69,9 @@ app.get('/historic/price/:ticker', (req, res) => {
 
 app.get('/stock/:stockTicker/price', (req, res) => {
     var SYMBOL = req.params.stockTicker;
+    var currentDate = new Date(Date.now());
+    var oneYearAgoDate = (currentDate.getFullYear() - 1) + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
+    var recentPrice= {};
 
     yahooFinance.quote({
         symbol: `${SYMBOL}`,
@@ -78,11 +81,39 @@ app.get('/stock/:stockTicker/price', (req, res) => {
               console.log(err);
               return;
           }
-          console.log(quote);
+          //console.log(quote);
+          recentPrice = quote;
 
-          res.send({currentPriceData: quote});
+         // res.send({currentPriceData: quote});
+
+         yahooFinance.historical({
+            symbol: SYMBOL,
+            from: oneYearAgoDate,
+            to: currentDate.toJSON().substring(0,10),
+            period: 'd'
+            }, function (err, quotes) {
+            if (err) { throw err; } 
+            else {
+               // console.log(quotes);
+                var historicDates = [];
+                var historicPrices = [];
+                
+                quotes.map((quote) => {
+                    historicDates.push(quote.date);
+                    historicPrices.push(quote.close);
+                })
+    
+                res.send({stockInfo: {
+                            recentPrice,
+                            historicData: {
+                                prices: historicPrices.reverse(),
+                                dates: historicDates.reverse()
+                            }
+                        }});
+            }
+        })
       });
-} )
+});
 
 
 server.listen(process.env.PORT || 5000, () => {

@@ -26,9 +26,6 @@ import useYahooWebsocket from '../hooks/useYahooWebsocket';
 
 
 const LineChart = ({historicPrices, historicDates, setHistoricPrices, setHistoricDates, stockPrice, ticker, chartTimeRangeSelected, chartLiveTimeStatus}) => {
-    //   console.log(historicDates);
-    //   console.log(historicPrices);
-    // console.log(stockPrice);
     const [price, setPrice] = useState([]);
     const date = new Date();
     const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
