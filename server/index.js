@@ -4,6 +4,8 @@ const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
 var yahooFinance = require('yahoo-finance');
+const { default:axios } = require("axios");
+const cheerio = require('cheerio');
 
 app.use(cors());
 
@@ -83,6 +85,43 @@ app.get('/stock/:stockTicker/price', (req, res) => {
             }
         })
       });
+});
+
+app.get('/news', async (req, res) => {
+    try{
+        const siteURL = 'https://www.marketwatch.com/latest-news?mod=top_nav';
+        const { data } = await axios({
+            method: "GET",
+            url: siteURL
+        });
+    
+        const $ = cheerio.load(data);
+        const elemSelector = '#maincontent > div:nth-child(1) > div.region.region--primary > div.component.component--module.more-headlines > div > div.collection__elements.j-scrollElement > div';
+       
+        const news = [];
+
+
+        $(elemSelector).each((parentIndex, parentElem) => {
+            const newsObj = {};
+
+
+            const articleHeader = $(parentElem).find('h3 a').text().replace(/\s\s+/g, ' ');
+            const link = $(parentElem).find('h3 a').attr('href');
+            const img = $(parentElem).find('figure img', parentElem).attr('data-srcset');
+
+            newsObj.articleHeader = articleHeader;
+            newsObj.link = link;
+            newsObj.img = img === undefined ? "none" : img;
+        
+
+            news.push(newsObj);
+        });
+ 
+
+        res.send({news: news});
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 

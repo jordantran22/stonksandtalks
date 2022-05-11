@@ -91,7 +91,7 @@ const Stock = () => {
                     :
                     <div>
                       <div className='stockPageHeader'>
-                        <h1 className='ticker'>{ticker.stockTicker}</h1>
+                        <h1 className='ticker'>{recentStockPriceInfo.longName} ({ticker.stockTicker})</h1>
                         {stonk !== null ? 
                           <h1 className={stonk.changePercent > 0 ? 'greenColor' : 'redColor'}>${formatPriceByTwoDecimals(stonk.price)} ({formatPriceByTwoDecimals(stonk.change)} USD, {formatPriceByTwoDecimals(stonk.changePercent)}%)</h1> 
                           : 
